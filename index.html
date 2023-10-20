@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="disney-style.css"> <!-- Disney風のスタイルシートを追加 -->
+    <title>ディズニークイズ</title>
+</head>
+<body>
+<div id="quiz-container">
+    <!-- クイズ回数表示 -->
+    <div id="quiz-count">クイズ回数: <span id="count">0</span>/5</div>
+    <div id="question">質問がここに表示されます。</div>
+    <div class="choice" onclick="checkAnswer(0)">選択肢1</div>
+    <div class="choice" onclick="checkAnswer(1)">選択肢2</div>
+    <div class="choice" onclick="checkAnswer(2)">選択肢3</div>
+    <div id="stamp-message">おめでとうございます！<br>全問正解です！<br>スタンプ一個ゲット!!</div>
+</div>
+
+<script type="text/javascript" src="script.js"></script>
+
+<script>
+    function startQuiz() {
+        document.getElementById('start-container').style.display = 'none';
+        document.getElementById('quiz-container').style.display = 'block';
+        initQuiz();
+    }
+</script>
+
+</body>
+</html>
