@@ -230,7 +230,7 @@ function initQuiz() {
 }
 
 function nextQuestion() {
-    // クイズ回数が5に達したら終了
+    // クイズ回数が10に達したら終了
     if (quizCount >= 10) {
         var resetConfirmation = confirm("クイズが終了しました。リセットしますか？\n正解した回数: " + correctCount);
         if (resetConfirmation) {
@@ -256,6 +256,7 @@ function nextQuestion() {
     // HTML にクイズ回数を反映
     document.getElementById('count').textContent = quizCount;
 }
+
 
 function displayQuestion() {
     var currentQuestion = questions[currentQuestionIndex];
