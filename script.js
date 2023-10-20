@@ -231,7 +231,7 @@ function initQuiz() {
 
 function nextQuestion() {
     // クイズ回数が5に達したら終了
-    if (quizCount >= 5) {
+    if (quizCount >= 10) {
         var resetConfirmation = confirm("クイズが終了しました。リセットしますか？\n正解した回数: " + correctCount);
         if (resetConfirmation) {
             // リセットの場合
