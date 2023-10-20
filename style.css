@@ -1,0 +1,80 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8e6c5; /* ベージュ */
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; /* ビューポートの高さいっぱいに設定 */
+}
+
+#quiz-container {
+    max-width: 600px;
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#question {
+    font-size: 20px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.choice {
+    display: inline-block;
+    margin: 10px;
+    padding: 15px 30px;
+    cursor: pointer;
+    border: 2px solid #0069aa; /* ディズニー風の青色 */
+    border-radius: 8px;
+    background-color: #fff;
+    color: #0069aa; /* ディズニー風の青色 */
+    font-size: 16px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.choice:hover {
+    background-color: #0069aa; /* ディズニー風の青色 */
+    color: #fff;
+}
+
+#quiz-count {
+    position: absolute; /* 絶対位置指定 */
+    top: 10px; /* 上からの距離 */
+    right: 10px; /* 右からの距離 */
+    font-family: 'Disney', cursive;
+    font-size: 50px;
+    color: #ff6f61;
+}
+
+/* style.css1 */
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-20px);
+    }
+    60% {
+        transform: translateY(-10px);
+    }
+}
+
+.celebration-message {
+    font-size: 24px;
+    color: #ff6f61;
+    text-align: center;
+    animation: bounce 2s ease infinite;
+}
+
+.result-message {
+    font-size: 20px;
+    color: #333;
+    text-align: center;
+}
+x
