@@ -295,26 +295,23 @@ function nextQuestion() {
 
 
 function displayQuestion() {
-    var currentQuestion = questions[currentQuestionIndex];
-
-    // 正解の選択肢を保存
-    var correctChoice = currentQuestion.choices[currentQuestion.correctIndex];
-
-    // 選択肢をシャッフル
-    var shuffledChoices = shuffle(currentQuestion.choices);
-
-    document.getElementById('question').textContent = currentQuestion.question;
-
-    var choices = document.getElementsByClassName('choice');
-    for (var i = 0; i < choices.length; i++) {
-        choices[i].textContent = shuffledChoices[i];
-
-        // 正解の選択肢の場合は正しいインデックスを設定
-        if (shuffledChoices[i] === correctChoice) {
-            currentQuestion.correctIndex = i;
+        var currentQuestion = questions[currentQuestionIndex];
+    
+        // 選択肢をシャッフル
+        var shuffledChoices = shuffle(currentQuestion.choices);
+    
+        document.getElementById('question').textContent = currentQuestion.question;
+    
+        var choices = document.getElementsByClassName('choice');
+        for (var i = 0; i < choices.length; i++) {
+            choices[i].textContent = shuffledChoices[i];
+    
+            // 正解の選択肢の場合は正しいインデックスを設定
+            if (shuffledChoices[i] === currentQuestion.choices[currentQuestion.correctIndex]) {
+                currentQuestion.correctIndex = i;
+            }
         }
     }
-}
 
 function checkAnswer(choiceIndex) {
     var currentQuestion = questions[currentQuestionIndex];
