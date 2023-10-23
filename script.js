@@ -294,8 +294,16 @@ function nextQuestion() {
     displayQuestion();
 
 
-function displayQuestion() {
+    function displayQuestion() {
         var currentQuestion = questions[currentQuestionIndex];
+    
+        if (!currentQuestion) {
+            console.error("現在の質問が定義されていません。");
+            return;
+        }
+    
+        // 正解の選択肢を保存
+        var correctChoice = currentQuestion.choices[currentQuestion.correctIndex];
     
         // 選択肢をシャッフル
         var shuffledChoices = shuffle(currentQuestion.choices);
@@ -307,12 +315,11 @@ function displayQuestion() {
             choices[i].textContent = shuffledChoices[i];
     
             // 正解の選択肢の場合は正しいインデックスを設定
-            if (shuffledChoices[i] === currentQuestion.choices[currentQuestion.correctIndex]) {
+            if (shuffledChoices[i] === correctChoice) {
                 currentQuestion.correctIndex = i;
             }
         }
     }
-
 function checkAnswer(choiceIndex) {
     var currentQuestion = questions[currentQuestionIndex];
 
