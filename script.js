@@ -293,8 +293,7 @@ function nextQuestion() {
     currentQuestionIndex = randomIndex;
     displayQuestion();
 
-
-    function displayQuestion() {
+ function displayQuestion() {
         var currentQuestion = questions[currentQuestionIndex];
     
         if (!currentQuestion) {
@@ -313,12 +312,10 @@ function nextQuestion() {
         var choices = document.getElementsByClassName('choice');
         for (var i = 0; i < choices.length; i++) {
             choices[i].textContent = shuffledChoices[i];
-    
-            // 正解の選択肢の場合は正しいインデックスを設定
-            if (shuffledChoices[i] === correctChoice) {
-                currentQuestion.correctIndex = i;
-            }
         }
+    
+        // 正解の選択肢のインデックスを取得
+        currentQuestion.correctIndex = shuffledChoices.indexOf(correctChoice);
     }
 function checkAnswer(choiceIndex) {
     var currentQuestion = questions[currentQuestionIndex];
