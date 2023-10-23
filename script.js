@@ -284,7 +284,7 @@ function nextQuestion() {
         }
         return;
     }
-}
+
     var randomIndex;
     do {
         randomIndex = Math.floor(Math.random() * questions.length);
@@ -293,53 +293,50 @@ function nextQuestion() {
     currentQuestionIndex = randomIndex;
     displayQuestion();
 
- function displayQuestion() {
-        var currentQuestion = questions[currentQuestionIndex];
-    
-        if (!currentQuestion) {
-            console.error("現在の質問が定義されていません。");
-            return;
+    // クイズ回数を増加
+    quizCount++;
+    // HTML にクイズ回数を反映
+    document.getElementById('count').textContent = quizCount;
+}
+
+function displayQuestion() {
+    var currentQuestion = questions[currentQuestionIndex];
+
+    // 正解の選択肢を保存
+    var correctChoice = currentQuestion.choices[currentQuestion.correctIndex];
+
+    // 選択肢をシャッフル
+    var shuffledChoices = shuffle(currentQuestion.choices);
+
+    document.getElementById('question').textContent = currentQuestion.question;
+
+    var choices = document.getElementsByClassName('choice');
+    for (var i = 0; i < choices.length; i++) {
+        choices[i].textContent = shuffledChoices[i];
+
+        // 正解の選択肢の場合は正しいインデックスを設定
+        if (shuffledChoices[i] === correctChoice) {
+            currentQuestion.correctIndex = i;
         }
-    
-        // 正解の選択肢を保存
-        var correctChoice = currentQuestion.choices[currentQuestion.correctIndex];
-    
-        // 選択肢をシャッフル
-        var shuffledChoices = shuffle(currentQuestion.choices);
-    
-        document.getElementById('question').textContent = currentQuestion.question;
-    
-        var choices = document.getElementsByClassName('choice');
-        for (var i = 0; i < choices.length; i++) {
-            choices[i].textContent = shuffledChoices[i];
-        }
-    
-        // 正解の選択肢のインデックスを取得
-        currentQuestion.correctIndex = shuffledChoices.indexOf(correctChoice);
     }
-    function checkAnswer(choiceIndex) {
-        var currentQuestion = questions[currentQuestionIndex];
-    
-        // currentQuestion が undefined の場合や correctIndex が undefined の場合はエラーを表示して終了
-        if (!currentQuestion || currentQuestion.correctIndex === undefined) {
-            console.error("質問または正解のインデックスが定義されていません。");
-            return;
-        }
-    
-        if (choiceIndex === currentQuestion.correctIndex) {
-            // 正解の場合
-            alert("正解！\n" + currentQuestion.explanation);
-            correctCount++;
-        } else {
-            // 不正解の場合
-            var correctAnswer = currentQuestion.choices[currentQuestion.correctIndex];
-            alert("不正解...\n正解は: " + correctAnswer + "\n" + currentQuestion.explanation);
-        }
-    
-        // 次の質問に進む
-        nextQuestion();
+}
+
+function checkAnswer(choiceIndex) {
+    var currentQuestion = questions[currentQuestionIndex];
+
+    if (choiceIndex === currentQuestion.correctIndex) {
+        // 正解の場合
+        alert("正解！\n" + currentQuestion.explanation);
+        correctCount++;
+    } else {
+        // 不正解の場合
+        var correctAnswer = currentQuestion.choices[currentQuestion.correctIndex];
+        alert("不正解...\n正解は: " + correctAnswer + "\n" + currentQuestion.explanation);
     }
-    
+
+    // 次の質問に進む
+    nextQuestion();
+}
 
 // クイズ初期化
 initQuiz();
