@@ -221,28 +221,70 @@ var questions = [
 var currentQuestionIndex;
 var quizCount;
 var correctCount;
+var rankings = []; // ランキングを保持する配列
+
+function loadRankings() {
+    // ローカルストレージからランキングを読み込む
+    var storedRankings = localStorage.getItem('rankings');
+    if (storedRankings) {
+        rankings = JSON.parse(storedRankings);
+    }
+}
+
+function saveRankings() {
+    // ローカルストレージにランキングを保存
+    localStorage.setItem('rankings', JSON.stringify(rankings));
+}
+
+function displayRankings() {
+    // ランキングを表示
+    var rankingList = "ランキング\n";
+    for (var i = 0; i < rankings.length; i++) {
+        rankingList += (i + 1) + ". " + rankings[i].name + ": " + rankings[i].score + "点\n";
+    }
+    alert(rankingList);
+}
+
+function updateRankings() {
+    // プレイヤーの正解数をランキングに追加
+    var playerName = prompt("クイズが終了しました。お名前を入力してください。");
+    if (playerName) {
+        var playerScore = correctCount;
+        rankings.push({ name: playerName, score: playerScore });
+        rankings.sort(function (a, b) {
+            return b.score - a.score;
+        });
+
+        // ランキングを表示
+        displayRankings();
+
+        // ランキングを保存
+        saveRankings();
+    }
+}
 
 function initQuiz() {
     currentQuestionIndex = -1;
     quizCount = 0;
     correctCount = 0;
+    loadRankings(); // ランキングを読み込み
     nextQuestion();
 }
 
 function nextQuestion() {
     // クイズ回数が10に達したら終了
     if (quizCount >= 10) {
-        var resetConfirmation = confirm("クイズが終了しました。リセットしますか？\n正解した回数: " + correctCount);
+        var resetConfirmation = confirm("クイズが終了しました。ランキングに登録しますか？\n正解した回数: " + correctCount);
         if (resetConfirmation) {
+            // ランキングを更新
+            updateRankings();
+        } else {
             // リセットの場合
             initQuiz();
-        } else {
-            // リセットしない場合
-            alert("お疲れ様でした！\n正解した回数: " + correctCount);
         }
         return;
     }
-
+}
     var randomIndex;
     do {
         randomIndex = Math.floor(Math.random() * questions.length);
@@ -250,12 +292,6 @@ function nextQuestion() {
 
     currentQuestionIndex = randomIndex;
     displayQuestion();
-
-    // クイズ回数を増加
-    quizCount++;
-    // HTML にクイズ回数を反映
-    document.getElementById('count').textContent = quizCount;
-}
 
 
 function displayQuestion() {
@@ -315,3 +351,5 @@ function shuffle(array) {
   
     return array;
 }
+
+window.onload = displayRankings;
