@@ -357,4 +357,17 @@ function shuffle(array) {
     return array;
 }
 
+function onQuizEnd() {
+    var playerName = prompt("クイズが終了しました。お名前を入力してください。");
+    if (playerName) {
+        var playerScore = correctCount;
+        onQuizEnd(playerName, playerScore, quizCount);
+        // ランキングを表示
+        displayRankings();
+
+        // ランキングを保存
+        saveRankings();
+    }
+}
+
 window.onload = displayRankings;
