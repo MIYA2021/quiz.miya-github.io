@@ -317,22 +317,29 @@ function nextQuestion() {
         // 正解の選択肢のインデックスを取得
         currentQuestion.correctIndex = shuffledChoices.indexOf(correctChoice);
     }
-function checkAnswer(choiceIndex) {
-    var currentQuestion = questions[currentQuestionIndex];
-
-    if (choiceIndex === currentQuestion.correctIndex) {
-        // 正解の場合
-        alert("正解！\n" + currentQuestion.explanation);
-        correctCount++;
-    } else {
-        // 不正解の場合
-        var correctAnswer = currentQuestion.choices[currentQuestion.correctIndex];
-        alert("不正解...\n正解は: " + correctAnswer + "\n" + currentQuestion.explanation);
+    function checkAnswer(choiceIndex) {
+        var currentQuestion = questions[currentQuestionIndex];
+    
+        // currentQuestion が undefined の場合や correctIndex が undefined の場合はエラーを表示して終了
+        if (!currentQuestion || currentQuestion.correctIndex === undefined) {
+            console.error("質問または正解のインデックスが定義されていません。");
+            return;
+        }
+    
+        if (choiceIndex === currentQuestion.correctIndex) {
+            // 正解の場合
+            alert("正解！\n" + currentQuestion.explanation);
+            correctCount++;
+        } else {
+            // 不正解の場合
+            var correctAnswer = currentQuestion.choices[currentQuestion.correctIndex];
+            alert("不正解...\n正解は: " + correctAnswer + "\n" + currentQuestion.explanation);
+        }
+    
+        // 次の質問に進む
+        nextQuestion();
     }
-
-    // 次の質問に進む
-    nextQuestion();
-}
+    
 
 // クイズ初期化
 initQuiz();
